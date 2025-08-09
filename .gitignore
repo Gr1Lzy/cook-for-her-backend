@@ -4,3 +4,6 @@
 ### GRADLE ###
 .gradle/
 build/
+
+### SECRET ###
+.env
