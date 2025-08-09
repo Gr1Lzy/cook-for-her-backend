@@ -396,6 +396,7 @@
             <property name="allowedAnnotations" value="Override, Test"/>
             <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
+        <!-- REMOVED
         <module name="MissingJavadocMethod">
             <property name="scope" value="protected"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
@@ -403,6 +404,7 @@
             <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF,
                                    COMPACT_CTOR_DEF"/>
         </module>
+        -->
         <module name="SuppressionXpathSingleFilter">
             <property name="checks" value="MissingJavadocMethod"/>
             <property name="query" value="//*[self::METHOD_DEF or self::CTOR_DEF
@@ -411,6 +413,7 @@
                                  or self::RECORD_DEF or self::ENUM_DEF]
                                  [not(./MODIFIERS/LITERAL_PUBLIC)]]"/>
         </module>
+        <!-- REMOVED
         <module name="MissingJavadocType">
             <property name="scope" value="protected"/>
             <property name="tokens"
@@ -418,6 +421,7 @@
                       RECORD_DEF, ANNOTATION_DEF"/>
             <property name="excludeScope" value="nothing"/>
         </module>
+        -->
         <module name="MethodName">
             <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
             <message key="name.invalidPattern"
