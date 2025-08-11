@@ -1,5 +1,7 @@
 package com.github.cookforher.entity;
 
+import com.github.cookforher.dto.UserResponseDto;
+import com.github.cookforher.mapper.DtoMapper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
@@ -33,4 +35,11 @@ public class User extends AbstractEntity {
   public void init() {
     role = Role.ROLE_USER;
   }
+
+  public UserResponseDto toDto() {
+    return MAPPER.toDto(this);
+  }
+
+  private static final DtoMapper<User, UserResponseDto> MAPPER =
+      new DtoMapper<>(User.class, UserResponseDto.class);
 }

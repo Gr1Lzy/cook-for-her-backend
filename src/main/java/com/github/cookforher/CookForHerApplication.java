@@ -17,6 +17,7 @@ public class CookForHerApplication implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
+    log.info("http://localhost:8080/swagger-ui.html");
     Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092").start();
   }
 }
