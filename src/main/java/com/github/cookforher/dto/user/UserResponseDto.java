@@ -1,10 +1,11 @@
-package com.github.cookforher.dto;
+package com.github.cookforher.dto.user;
 
 import lombok.Data;
 
 @Data
 public class UserResponseDto {
+
   private String username;
+
   private String email;
-  private String role;
 }

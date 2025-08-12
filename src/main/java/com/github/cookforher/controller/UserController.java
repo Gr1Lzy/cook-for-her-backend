@@ -1,6 +1,6 @@
 package com.github.cookforher.controller;
 
-import com.github.cookforher.dto.UserResponseDto;
+import com.github.cookforher.dto.user.UserResponseDto;
 import com.github.cookforher.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

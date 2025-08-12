@@ -1,6 +1,6 @@
 package com.github.cookforher.service.impl;
 
-import com.github.cookforher.dto.UserResponseDto;
+import com.github.cookforher.dto.user.UserResponseDto;
 import com.github.cookforher.entity.User;
 import com.github.cookforher.repository.UserRepository;
 import com.github.cookforher.service.UserService;

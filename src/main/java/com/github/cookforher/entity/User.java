@@ -1,6 +1,6 @@
 package com.github.cookforher.entity;
 
-import com.github.cookforher.dto.UserResponseDto;
+import com.github.cookforher.dto.user.UserResponseDto;
 import com.github.cookforher.mapper.DtoMapper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
