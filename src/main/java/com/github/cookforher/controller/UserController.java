@@ -24,4 +24,10 @@ public class UserController {
   public ResponseEntity<UserResponseDto> getUserByUsername(@PathVariable String username) {
     return ResponseEntity.ok(userService.getUserByUsername(username));
   }
+
+  @Operation(summary = "Get current user")
+  @GetMapping
+  public ResponseEntity<UserResponseDto> getCurrentUser() {
+    return ResponseEntity.ok(userService.getCurrentUser());
+  }
 }
