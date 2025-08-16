@@ -25,7 +25,7 @@ class SecurityConfigTest {
   private SecurityConfig securityConfig;
 
   @Test
-  void securityFilterChain_shouldReturnSecurityFilterChain_whenCallSecurityFilterChain() throws Exception {
+  void securityFilterChain_shouldReturnSecurityFilterChain() throws Exception {
     // Given
     HttpSecurity httpSecurity = mock(HttpSecurity.class, RETURNS_DEEP_STUBS);
     when(httpSecurity.build()).thenReturn(mock(DefaultSecurityFilterChain.class));
@@ -38,7 +38,7 @@ class SecurityConfigTest {
   }
 
   @Test
-  void securityConfig_shouldBeCreatedWithJwtFilter_whenCallNew() {
+  void securityConfig_shouldBeCreatedWithJwtFilter() {
     // Given & When
     SecurityConfig config = new SecurityConfig(jwtAuthFilter);
 

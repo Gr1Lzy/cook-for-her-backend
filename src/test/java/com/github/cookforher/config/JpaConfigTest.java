@@ -8,7 +8,7 @@ class JpaConfigTest {
 
   @Test
   void jpaConfig_shouldBeCreated() {
-    // When
+    // Given & When
     JpaConfig config = new JpaConfig();
 
     // Then

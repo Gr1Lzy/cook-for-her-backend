@@ -61,7 +61,7 @@ class AppConfigTest {
   }
 
   @Test
-  void authenticationManager_shouldReturnManager_whenCallAuthenticationManager() throws Exception {
+  void authenticationManager_shouldReturnManager() throws Exception {
     // Given
     AuthenticationConfiguration config = mock(AuthenticationConfiguration.class);
     AuthenticationManager expectedManager = mock(AuthenticationManager.class);
