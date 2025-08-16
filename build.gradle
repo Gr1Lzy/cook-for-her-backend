@@ -17,6 +17,7 @@ java {
 checkstyle {
     configFile = file('checkstyle.xml')
     toolVersion = '11.0.0'
+    ignoreFailures = false
 }
 
 repositories {
@@ -56,5 +57,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    jvmArgs '-XX:+EnableDynamicAgentLoading'
+    jvmArgs '-XX:+EnableDynamicAgentLoading', '-Xshare:off'
+}
+
+build {
+    dependsOn checkstyleMain, checkstyleTest
 }
