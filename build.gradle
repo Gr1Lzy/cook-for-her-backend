@@ -1,0 +1,82 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'org.springframework.boot' version '3.5.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.github.cookforher'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+checkstyle {
+    configFile = file('checkstyle.xml')
+    toolVersion = '11.0.0'
+    ignoreFailures = false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // H2 Database (change runtimeOnly in prod)
+    implementation 'com.h2database:h2'
+
+    // Liquibase
+    implementation 'org.liquibase:liquibase-core'
+
+    // ModelMapper
+    implementation 'org.modelmapper:modelmapper:3.2.4'
+
+    // Spring Doc (Swagger)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+
+    // JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs '-XX:+EnableDynamicAgentLoading', '-Xshare:off'
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            def summary = "Results: " +
+                    "${result.resultType} (" +
+                    "${result.testCount} tests, " +
+                    "${result.successfulTestCount} passed, " +
+                    "${result.failedTestCount} failed, " +
+                    "${result.skippedTestCount} skipped)"
+            def border = '-' * (summary.length() + 6)
+            println "\n$border\n|  $summary  |\n$border"
+        }
+    }
+}
+
+build {
+    dependsOn checkstyleMain, checkstyleTest
+}
