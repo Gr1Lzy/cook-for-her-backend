@@ -8,9 +8,9 @@ import lombok.Data;
 @Builder
 public class LoginResponseDto {
 
-  @JsonProperty(namespace = "access_token")
+  @JsonProperty("access_token")
   private String accessToken;
 
-  @JsonProperty(namespace = "refresh_token")
+  @JsonProperty("refresh_token")
   private String refreshToken;
 }
