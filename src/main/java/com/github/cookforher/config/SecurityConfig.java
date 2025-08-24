@@ -1,5 +1,7 @@
 package com.github.cookforher.config;
 
+import com.github.cookforher.exception.handler.CustomAccessDeniedHandler;
+import com.github.cookforher.exception.handler.CustomAuthenticationEntryPoint;
 import com.github.cookforher.util.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
 
   private final JwtAuthFilter jwtAuthFilter;
+  private final CustomAccessDeniedHandler accessDeniedHandler;
+  private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -27,12 +31,21 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
 
         .authorizeHttpRequests(request -> request
-            .requestMatchers("/**")
+            .requestMatchers(
+                "/api/auth/**",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+                "/swagger-ui.html")
             .permitAll()
-            .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
-            .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+            .requestMatchers("/api/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
             .anyRequest()
             .authenticated()
+        )
+    //privileges
+        .exceptionHandling(exceptions -> exceptions
+            .accessDeniedHandler(accessDeniedHandler)
+            .authenticationEntryPoint(authenticationEntryPoint)
         )
 
         .sessionManagement(session -> session
