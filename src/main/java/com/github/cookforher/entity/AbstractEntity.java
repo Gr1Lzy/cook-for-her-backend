@@ -27,7 +27,7 @@ public class AbstractEntity {
   @CreatedDate
   private Instant createdAt;
 
-  @Column(name = "updated_at", updatable = false)
+  @Column(name = "updated_at")
   @LastModifiedDate
   private Instant updatedAt;
 }
