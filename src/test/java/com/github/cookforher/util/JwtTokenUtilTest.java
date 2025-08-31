@@ -19,7 +19,8 @@ class JwtTokenUtilTest {
   @BeforeEach
   void setUp() {
     jwtTokenUtil = new JwtTokenUtil();
-    ReflectionTestUtils.setField(jwtTokenUtil, "tokenSecret", "dGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQ=");
+    ReflectionTestUtils.setField(jwtTokenUtil, "tokenSecret",
+        "dGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQ=");
     ReflectionTestUtils.setField(jwtTokenUtil, "accessTokenExpiration", Duration.ofMinutes(15));
     ReflectionTestUtils.setField(jwtTokenUtil, "refreshTokenExpiration", Duration.ofDays(7));
 

@@ -55,7 +55,7 @@ class AuthControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(loginRequestDto)))
         .andDo(print())
-        .andExpected(status().isOk());
+        .andExpect(status().isOk());
   }
 
   @Test
