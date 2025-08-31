@@ -8,6 +8,6 @@ import lombok.Data;
 public class RefreshRequestDto {
 
   @NotBlank(message = "Refresh Token is required.")
-  @JsonProperty(namespace = "refresh_token")
+  @JsonProperty("refresh_token")
   private String refreshToken;
 }

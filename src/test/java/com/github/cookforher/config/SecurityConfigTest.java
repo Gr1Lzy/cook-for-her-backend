@@ -1,6 +1,8 @@
 package com.github.cookforher.config;
 
-import com.github.cookforher.util.jwt.JwtAuthFilter;
+import com.github.cookforher.exception.handler.CustomAccessDeniedHandler;
+import com.github.cookforher.exception.handler.CustomAuthenticationEntryPoint;
+import com.github.cookforher.util.jwt.JwtTokenUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,7 +21,13 @@ import static org.mockito.Mockito.when;
 class SecurityConfigTest {
 
   @Mock
-  private JwtAuthFilter jwtAuthFilter;
+  private JwtTokenUtil jwtTokenUtil;
+
+  @Mock
+  private CustomAccessDeniedHandler accessDeniedHandler;
+
+  @Mock
+  private CustomAuthenticationEntryPoint authenticationEntryPoint;
 
   @InjectMocks
   private SecurityConfig securityConfig;
@@ -38,11 +46,12 @@ class SecurityConfigTest {
   }
 
   @Test
-  void securityConfig_shouldBeCreatedWithJwtFilter() {
+  void securityConfig_shouldBeCreatedWithJwtTokenUtil() {
     // Given & When
-    SecurityConfig config = new SecurityConfig(jwtAuthFilter);
+    SecurityConfig config = new SecurityConfig(jwtTokenUtil, accessDeniedHandler, authenticationEntryPoint);
 
     // Then
     assertNotNull(config);
   }
 }
+

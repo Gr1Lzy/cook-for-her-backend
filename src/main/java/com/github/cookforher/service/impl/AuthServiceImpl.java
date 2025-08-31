@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
   private final UserRepository userRepository;
   private final JwtTokenUtil jwtTokenUtil;
   private final AuthenticationManager authenticationManager;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public LoginResponseDto login(LoginRequestDto requestDto) {
@@ -43,6 +45,9 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public void register(RegisterRequestDto requestDto) {
     User user = requestDto.toEntity();
+    String password = requestDto.getPassword();
+    String encodedPassword = passwordEncoder.encode(password);
+    user.setPassword(encodedPassword);
 
     if (userRepository.existsByUsername(user.getUsername())) {
       throw new EntityExistsException("Username already exists");

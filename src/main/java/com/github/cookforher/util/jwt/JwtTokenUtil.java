@@ -43,7 +43,11 @@ public class JwtTokenUtil {
   }
 
   public boolean isAccessTokenValid(String token) {
-    return isValidToken(token, ACCESS_TOKEN);
+    try {
+      return isValidToken(token, ACCESS_TOKEN);
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   public boolean isRefreshTokenValid(String token) {
