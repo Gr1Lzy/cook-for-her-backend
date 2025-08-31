@@ -42,7 +42,7 @@ class UserControllerTest {
   }
 
   @Test
-  void getCurrentUser_shouldReturnUserResponseDto_whenAuthenticated() throws Exception {
+  void    getCurrentUser_shouldReturnUserResponseDto_whenAuthenticated() throws Exception {
     // Given
     UserResponseDto userResponseDto = new UserResponseDto();
     userResponseDto.setUsername("currentuser");
