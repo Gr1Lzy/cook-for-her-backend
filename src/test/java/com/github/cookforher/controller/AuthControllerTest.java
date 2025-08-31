@@ -6,6 +6,7 @@ import com.github.cookforher.dto.auth.LoginResponseDto;
 import com.github.cookforher.dto.auth.RefreshRequestDto;
 import com.github.cookforher.dto.auth.RegisterRequestDto;
 import com.github.cookforher.service.AuthService;
+import com.github.cookforher.util.jwt.JwtAuthFilter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,11 +33,13 @@ class AuthControllerTest {
   private ObjectMapper objectMapper;
 
   @MockitoBean
+  private JwtAuthFilter jwtAuthFilter;
+
+  @MockitoBean
   private AuthService authService;
 
   @Test
   void login_shouldReturnLoginResponseDto() throws Exception {
-    // Given
     LoginRequestDto loginRequestDto = new LoginRequestDto();
     loginRequestDto.setUsername("test");
     loginRequestDto.setPassword("12345678");
@@ -46,29 +49,24 @@ class AuthControllerTest {
         .refreshToken("refresh")
         .build();
 
-    // When
     when(authService.login(any(LoginRequestDto.class))).thenReturn(loginResponseDto);
 
-    // Then
     mockMvc.perform(post("/api/auth/login")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(loginRequestDto)))
         .andDo(print())
-        .andExpect(status().isOk());
+        .andExpected(status().isOk());
   }
 
   @Test
   void register_shouldReturnCreated() throws Exception {
-    // Given
     RegisterRequestDto registerRequestDto = new RegisterRequestDto();
     registerRequestDto.setUsername("test");
     registerRequestDto.setPassword("12345678");
     registerRequestDto.setEmail("test@example.com");
 
-    // When
     doNothing().when(authService).register(any(RegisterRequestDto.class));
 
-    // Then
     mockMvc.perform(post("/api/auth/register")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(registerRequestDto)))
@@ -78,7 +76,6 @@ class AuthControllerTest {
 
   @Test
   void refresh_shouldReturnLoginResponseDto() throws Exception {
-    // Given
     RefreshRequestDto refreshRequestDto = new RefreshRequestDto();
     refreshRequestDto.setRefreshToken("refresh-token");
 
@@ -87,10 +84,8 @@ class AuthControllerTest {
         .refreshToken("new-refresh")
         .build();
 
-    // When
     when(authService.refresh(any(RefreshRequestDto.class))).thenReturn(loginResponseDto);
 
-    // Then
     mockMvc.perform(post("/api/auth/refresh")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(refreshRequestDto)))
@@ -98,4 +93,3 @@ class AuthControllerTest {
         .andExpect(status().isOk());
   }
 }
-

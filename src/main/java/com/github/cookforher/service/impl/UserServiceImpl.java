@@ -2,10 +2,10 @@ package com.github.cookforher.service.impl;
 
 import com.github.cookforher.dto.user.UserResponseDto;
 import com.github.cookforher.entity.User;
+import com.github.cookforher.exception.custom.EntityNotFoundException;
 import com.github.cookforher.repository.UserRepository;
 import com.github.cookforher.service.UserService;
 import com.github.cookforher.util.user.UserUtil;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
