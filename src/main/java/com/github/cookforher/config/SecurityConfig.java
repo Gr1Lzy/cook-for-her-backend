@@ -26,8 +26,9 @@ public class SecurityConfig {
   private final CustomAccessDeniedHandler accessDeniedHandler;
   private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
-  private static final String[] WHITE_LIST_URL = {
-      "/api/auth/**",
+  private static final String ADMIN = "ROLE_ADMIN";
+  private static final String USER = "ROLE_USER";
+  private static final String[] SWAGGER = {
       "/swagger-ui/**",
       "/v3/api-docs/**",
       "/swagger-ui.html"
@@ -42,9 +43,11 @@ public class SecurityConfig {
             .sessionCreationPolicy(STATELESS))
 
         .authorizeHttpRequests(request -> request
-            .requestMatchers(WHITE_LIST_URL).permitAll()
-            .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers("/api/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+            .requestMatchers(SWAGGER).permitAll()
+            .requestMatchers("/v1/auth/**").permitAll()
+            .requestMatchers("/v1/admin/**").hasAuthority(ADMIN)
+            .requestMatchers("/v1/user/**").hasAnyAuthority(USER, ADMIN)
+            .requestMatchers("/v1/recipe/**").hasAnyAuthority(USER, ADMIN)
             .anyRequest().authenticated()
         )
 
